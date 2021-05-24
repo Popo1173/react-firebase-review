@@ -20,13 +20,21 @@ class Sampledata extends Component {
 
     //Firebaseからのデータ取得
     getFireData(){
+        //firebaseオブジェクトからdatabaseオブジェクトを取り出す
         let db = firebase.database();
+        //databaseオブジェクトのrefメソッドでsampleデータを取り出し
         let ref = db.ref('sample/');
         let self = this;
+        //データ取得処理
+        //orderByKey()メソッドでデータを順に並び替えて取り出し
         ref.orderByKey()
+            //引数に指定した数だけデータを取り出す
             .limitToFirst(10)
+            //valuでDBにアクセスし値を受け取るイベントを第一引数に
+            //第二引数でsnapshot関数を実行（イベント時に受け取ったデータなどの情報をまとめたオブジェクト）
             .on('value', (snapshot) =>{
                 self.setState({
+                    //取得したデータをsnapshotからデータを取り出し、dataステートに設定
                     data: snapshot.val()
                 });
             });
