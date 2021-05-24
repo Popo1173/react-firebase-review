@@ -102,3 +102,27 @@ DBへのアクセスは非同期のためメインプログラムとは関係な
         data: snapshot.val()
     });
 ```
+
+## データのレンダー
+```
+    //データ表示の生成
+    //getTableDataメソッドでdataステートの内容をテーブルで生成
+    getTableData(){
+        let result = [];
+        //stateの中身がない場合
+        if(this.state.data == null || this.state.data.length == 0) {
+            return [<tr key="0"><th>NO DATA.</th></tr>];
+        }
+        //stateの中身をループで取り出す
+        for(let i in this.state.data) {
+            result.push(
+                <tr key={i}>
+                    <th>{this.state.data[i].ID}</th>
+                    <th>{this.state.data[i].name}</th>
+                    <th>{this.state.data[i].message}</th>
+                </tr>
+            );
+        }
+        return result
+    }
+    ```
